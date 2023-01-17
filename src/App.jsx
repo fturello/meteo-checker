@@ -6,22 +6,22 @@ import "./styles/App.css";
 function App() {
 	const [cityInfos, setCityInfos] = useState([]);
 	const cityName = "Paris";
-	const apiKey = process.env.REACT_APP_API_KEY;
+	const apiKey = import.meta.env.VITE_API_KEY;
 
 	useEffect(() => {
 		axios
 			.get(
 				`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${apiKey}`
 			)
-			.then((res) => res.data())
+			.then((res) => res.data)
 			.then((data) => {
 				console.log("// data ==", data);
-				// setCityInfos(data.results)
+				setCityInfos(data[0]);
 			});
 	}, []);
 
 	const onPressBtn = () => {
-		console.log(process.env.REACT_APP_API_KEY);
+		console.log(import.meta.env.VITE_API_KEY);
 	};
 
 	return <button onClick={onPressBtn}></button>;
